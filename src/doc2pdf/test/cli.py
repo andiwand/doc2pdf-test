@@ -37,7 +37,7 @@ def main():
     parser.add_argument("-s", "--src", help="path to the file to copy")
     parser.add_argument("-d", "--debug", action="store_true", help="activate debug messages")
     parser.add_argument("path", help="path to the created file")
-    args = parser.parse_args(["-t", "2", "asdf"])
+    args = parser.parse_args()
     
     level = logging.DEBUG if args.debug else logging.CRITICAL
     pdf_file = replaceextension(args.path, "pdf")
