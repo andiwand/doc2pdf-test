@@ -5,6 +5,8 @@ import shutil
 import time
 import errno
 
+POLLING_INERVAL = 100
+
 RESULT_OK = 0
 RESULT_WARNING = 1
 RESULT_CRITICAL = 2
@@ -41,6 +43,7 @@ def main():
     
     level = logging.DEBUG if args.debug else logging.CRITICAL
     pdf_file = replaceextension(args.path, "pdf")
+    timeout = int(args.timeout)
     
     logging.basicConfig(level=level, format="%(asctime)s %(message)s")  # TODO: outsource
     
@@ -65,9 +68,13 @@ def main():
     else:
         touch(args.path)
     
-    time.sleep(int(args.timeout))
-    
     logging.info("checking for pdf file");
+    
+    start = time.time()
+    while True:
+        if os.path.isfile(pdf_file): break
+        if (time.time() - start) > timeout: break
+        time.sleep(POLLING_INERVAL)
     
     result = os.path.isfile(pdf_file)
     if result:
