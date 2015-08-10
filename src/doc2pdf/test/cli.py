@@ -89,7 +89,8 @@ def main():
     
     logging.info("clear files");
     # TODO: timeout and outsource
-    while !silentremove(pdf_file): waitpoll()
+    if result:
+        while !silentremove(pdf_file): waitpoll()
     while !silentremove(args.path): waitpoll()
     
     logging.info("exit");
