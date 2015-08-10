@@ -90,8 +90,8 @@ def main():
     logging.info("clear files");
     # TODO: timeout and outsource
     if result:
-        while !silentremove(pdf_file): waitpoll()
-    while !silentremove(args.path): waitpoll()
+        while not silentremove(pdf_file): waitpoll()
+    while not silentremove(args.path): waitpoll()
     
     logging.info("exit");
     if not result: return RESULT_CRITICAL
