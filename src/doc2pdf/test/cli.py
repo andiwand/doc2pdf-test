@@ -5,7 +5,7 @@ import shutil
 import time
 import errno
 
-POLLING_INERVAL = 100
+POLLING_INERVAL = 0.1
 
 RESULT_OK = 0
 RESULT_WARNING = 1
