@@ -29,9 +29,12 @@ def touch(path, times=None):
 def silentremove(filename):
     try:
         os.remove(filename)
-    except OSError as e:
-        if e.errno != errno.ENOENT:
-            raise
+        return True
+    except:
+        return False
+
+def waitpoll():
+    time.sleep(POLLING_INERVAL)
 
 def main():
     parser = argparse.ArgumentParser(description="test script for doc2pdf")
@@ -74,7 +77,7 @@ def main():
     while True:
         if os.path.isfile(pdf_file): break
         if (time.time() - start) > timeout: break
-        time.sleep(POLLING_INERVAL)
+        waitpoll()
     
     result = os.path.isfile(pdf_file)
     if result:
@@ -85,8 +88,9 @@ def main():
         print "pdf not found"
     
     logging.info("clear files");
-    silentremove(pdf_file)
-    silentremove(args.path)
+    # TODO: timeout and outsource
+    while !silentremove(pdf_file): waitpoll()
+    while !silentremove(args.path): waitpoll()
     
     logging.info("exit");
     if not result: return RESULT_CRITICAL
