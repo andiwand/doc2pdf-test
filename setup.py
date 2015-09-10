@@ -6,7 +6,7 @@ setup(
     url="https://github.com/andiwand/doc2pdf-test",
     license="GNU Lesser General Public License",
     author="Andreas Stefl",
-    install_requires=["doc2pdf"],
+    install_requires=[],
     author_email="stefl.andreas@gmail.com",
     description="doc2pdf test script with nagios conventions",
     long_description="",
