@@ -54,11 +54,11 @@ def main():
     logging.debug("validate arguments")
     if args.src and not os.path.isfile(args.src):
         logging.error("src file does not exist")
-        print("src file does not exist")
+        print("UNKNOWN - src file does not exist")
         return RESULT_UNKNOWN
     if not is_int(args.timeout):
         logging.error("timeout is not a number")
-        print("timeout is not a number")
+        print("UNKNOWN - timeout is not a number")
         return RESULT_UNKNOWN
     
     logging.info("remove pdf if exists %s" % pdf_file);
@@ -82,10 +82,10 @@ def main():
     result = os.path.isfile(pdf_file)
     if result:
         logging.info("pdf found")
-        print("pdf found")
+        print("OK - pdf found")
     else:
         logging.error("pdf not found")
-        print("pdf not found")
+        print("CRIT - pdf not found")
     
     logging.info("clear files");
     # TODO: timeout and outsource
