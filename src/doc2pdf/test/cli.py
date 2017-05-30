@@ -41,11 +41,11 @@ def main():
     parser.add_argument("-t", "--timeout", default="10", help="seconds to wait for the pdf")
     parser.add_argument("-s", "--src", help="path to the file to copy")
     parser.add_argument("-d", "--debug", action="store_true", help="activate debug messages")
-    parser.add_argument("path", help="path to the created file")
+    parser.add_argument("dst", help="path to the file to create")
     args = parser.parse_args()
     
     level = logging.DEBUG if args.debug else logging.CRITICAL
-    pdf_file = replaceextension(args.path, "pdf")
+    pdf_file = replaceextension(args.dst, "pdf")
     timeout = int(args.timeout)
     
     logging.basicConfig(level=level, format="%(asctime)s %(message)s")  # TODO: outsource
@@ -64,12 +64,12 @@ def main():
     logging.info("remove pdf if exists %s" % pdf_file);
     silentremove(pdf_file)
     
-    logging.info("create test file %s" % args.path);
+    logging.info("create test file %s" % args.dst);
     if args.src:
         logging.info("copying from %s" % args.src)
-        shutil.copyfile(args.src, args.path)
+        shutil.copyfile(args.src, args.dst)
     else:
-        touch(args.path)
+        touch(args.dst)
     
     logging.info("checking for pdf file");
     
@@ -91,7 +91,7 @@ def main():
     # TODO: timeout and outsource
     if result:
         while not silentremove(pdf_file): waitpoll()
-    while not silentremove(args.path): waitpoll()
+    while not silentremove(args.dst): waitpoll()
     
     logging.info("exit");
     if not result: return RESULT_CRITICAL
