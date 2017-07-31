@@ -61,15 +61,20 @@ def main():
         print("UNKNOWN - timeout is not a number")
         return RESULT_UNKNOWN
     
-    logging.info("remove pdf if exists %s" % pdf_file);
+    logging.info("remove pdf if exists %s" % pdf_file)
     silentremove(pdf_file)
     
-    logging.info("create test file %s" % args.dst);
-    if args.src:
-        logging.info("copying from %s" % args.src)
-        shutil.copyfile(args.src, args.dst)
-    else:
-        touch(args.dst)
+    logging.info("create test file %s" % args.dst)
+    try:
+        if args.src:
+            logging.info("copying from %s" % args.src)
+            shutil.copyfile(args.src, args.dst)
+        else:
+            touch(args.dst)
+    except:
+        logging.error("cannot create test file")
+        print("UNKNOWN - cannot create test file")
+        return RESULT_UNKNOWN
     
     logging.info("checking for pdf file");
     
